@@ -19,9 +19,9 @@ namespace RecipesProject.Controllers
 
         public IActionResult Index()
         {
-           // var indexRecipe = this.recipeService.GetRandom(10);
+            var indexRecipe = this.recipeService.GetRandom(10);
 
-            return View();
+            return View(indexRecipe);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
