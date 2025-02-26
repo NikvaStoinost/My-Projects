@@ -1,0 +1,64 @@
+﻿@using RecipesProject.ViewModels.Recipes
+@model RecipesListViewModel
+
+@{
+    this.ViewData["Title"] = "Всички Рецепти";
+}
+<div class="container">
+    <div class="row">
+        @foreach (var recipe in this.Model.Recipes)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="media p-3 border" style="cursor: pointer;" onclick="window.location.href='@Url.Action("ById", "Recipes", new { id = recipe.Id })'">
+                    <img class="mr-3" src="@recipe.ImageUrl" alt="" width="250">
+                    <div class="media-body">
+                        <h5 class="mt-0">@recipe.Title</h5>
+                        <p>@recipe.CategoryName</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center">
+        <!-- Previous Button -->
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-action="All" asp-route-id="@Model.PreviousPageNumer" tabindex="-1">Previous</a>
+        </li>
+
+        <!-- Page Numbers Before Current -->
+        @for (int i = Model.PageNumber - 3; i < Model.PageNumber; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="All" asp-route-id="@i">@i</a>
+                </li>
+            }
+        }
+
+        <!-- Current Page (Active) -->
+        <li class="page-item active">
+            <span class="page-link">@Model.PageNumber</span>
+        </li>
+
+        <!-- Page Numbers After Current -->
+        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 3; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="All" asp-route-id="@i">@i</a>
+                </li>
+            }
+        }
+
+        <!-- Next Button -->
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+            <a class="page-link" asp-action="All" asp-route-id="@Model.NextPageNumber">Next</a>
+        </li>
+    </ul>
+</nav>

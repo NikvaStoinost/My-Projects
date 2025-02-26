@@ -1,0 +1,113 @@
+﻿@model RecipesProject.ViewModels.Recipes.CreateRecipeInputModel
+
+@{
+    ViewData["Title"] = "Add new recipe";
+   // var categoryitems = this.Model.CategoriesItems.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+
+<form method="post" enctype="multipart/form-data">
+  
+  <div class="col-md-6 offset-md-3">
+        <h1>@ViewData["Title"]</h1>
+        <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+             <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" placeholder="Enter the recipe title"/>
+             <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+             <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Describe the recipe..."></textarea>
+             <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+            <label asp-for="PreparationTime"></label>
+            <input asp-for="PreparationTime" class="form-control" placeholder="e.g., 20"/>
+            <span asp-validation-for="PreparationTime" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+            <label asp-for="CookingTime"></label>
+            <input asp-for="CookingTime" class="form-control" placeholder="e.g., 40"/>
+            <span asp-validation-for="CookingTime" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+            <label asp-for="PortionsCount"></label>
+            <input asp-for="PortionsCount" class="form-control" placeholder="e.g., 4"/>
+            <span asp-validation-for="PortionsCount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+            <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@Model.CategoriesItems" ></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+            <label asp-for="Photo"></label>
+            <input asp-for="Photo" class="form-control" />
+            <span asp-validation-for="Photo" class="text-danger"></span>
+    </div>
+        
+        <hr />
+    <div id="ingredientsContainer" class="form-group mb-3>
+           <label asp-for="Ingredients"></label>
+           <button id="addIngredientButton" type="button" class="btn btn-outline-primary btn-sm mb-3">Add Ingredients</button>
+    </div>
+        <hr />
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+  </div>
+
+</form>
+
+
+ 
+    <script>
+         document.getElementById('addIngredientButton').addEventListener('click', function () {
+        const container = document.getElementById('ingredientsContainer');
+
+
+        const fieldGroup = document.createElement('div');
+        fieldGroup.className = 'ingredient-group mb-3';
+
+
+        const nameField = document.createElement('input');
+        nameField.type = 'text';
+        nameField.placeholder = 'Ingredient Name';
+        nameField.className = 'form-control mb-2';
+
+
+        const quantityField = document.createElement('input');
+        quantityField.type = 'text';
+        quantityField.placeholder = 'Quantity';
+        quantityField.className = 'form-control mb-2';
+
+
+        fieldGroup.appendChild(nameField);
+        fieldGroup.appendChild(quantityField);
+
+        container.appendChild(fieldGroup);
+
+        updateIngredientFieldNames();
+    });
+
+       function updateIngredientFieldNames() {
+        const ingredientGroups = document.querySelectorAll('.ingredient-group');
+        ingredientGroups.forEach((group, index) => {
+
+            const nameField = group.querySelector('input:nth-of-type(1)');
+            const quantityField = group.querySelector('input:nth-of-type(2)');
+            
+            if (nameField && quantityField) {
+                nameField.name = `Ingredients[${index}].Name`;
+                quantityField.name = `Ingredients[${index}].Quantity`;
+            }
+        });
+       }
+
+    </script>
