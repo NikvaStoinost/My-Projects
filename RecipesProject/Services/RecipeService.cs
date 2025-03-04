@@ -142,18 +142,22 @@ namespace RecipesProject.Services
 
         public IEnumerable<IndexPageRecipeViewModel> GetRandom(int count)
         {
-            var recipe = this.db.Recipes.Select(x => new IndexPageRecipeViewModel
-            {
-                Id = x.Id,
-                RecipeModel = x.RecipeIngredients.Select(x => new IndexRecipeViewModel
+            var recipes = this.db.Recipes
+                .OrderBy(x => Guid.NewGuid())
+                .Take(count)
+                .Select(x => new IndexPageRecipeViewModel
                 {
-                    CategoryName = x.Recipe.Category.Name,
-                    ImageUrl = x.Recipe.OriginalUrl,
-                    Title = x.Recipe.Title
-                }).Take(count)
-            }).ToList();
+                    Id = x.Id,
+                    RecipeModel = x.RecipeIngredients.Select(ri => new IndexRecipeViewModel
+                    {
+                        CategoryName = ri.Recipe.Category.Name,
+                        ImageUrl = ri.Recipe.OriginalUrl,
+                        Title = ri.Recipe.Title
+                    }).ToList()
+                })
+                .ToList();
 
-            return recipe;
-        }           
+            return recipes;
+        }
     }
 }

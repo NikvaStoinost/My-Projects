@@ -19,7 +19,7 @@ namespace RecipesProject.Controllers
 
         public IActionResult Index()
         {
-            var indexRecipe = this.recipeService.GetRandom(10);
+            var indexRecipe = this.recipeService.GetRandom(12);
 
             return View(indexRecipe);
         }

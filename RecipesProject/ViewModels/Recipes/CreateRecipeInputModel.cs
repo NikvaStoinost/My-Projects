@@ -33,8 +33,6 @@ namespace RecipesProject.ViewModels.Recipes
     
         public IEnumerable<RecipeIngredientInputModel> Ingredients { get; set; }
 
-       // public IEnumerable<KeyValuePair<string , string>>? CategoriesItems { get; set; }
-
         public IEnumerable<SelectListItem> CategoriesItems { get; set; }
     }
 }

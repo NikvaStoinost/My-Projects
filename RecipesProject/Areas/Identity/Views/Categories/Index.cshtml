@@ -1,0 +1,103 @@
+﻿@model IEnumerable<RecipesProject.Data.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories List";
+}
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4 text-primary">Categories</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Category Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>
+                                  <a href="@Url.Action("Delete", "Categories", new { area = "Identity", id = item.Id })"
+                                     class="btn btn-warning btn-sm">
+                                      <i class="fas fa-edit"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .btn-sm {
+        font-size: 14px;
+        padding: 5px 10px;
+        margin: 0 5px;
+    }
+
+    .table th, .table td {
+        padding: 12px;
+    }
+
+    .thead-dark th {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card {
+        border-radius: 8px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .btn {
+        text-align: center;
+    }
+
+    .btn-warning, .btn-info, .btn-danger {
+        text-transform: capitalize;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
