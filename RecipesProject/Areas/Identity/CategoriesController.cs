@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipesProject.Data;
-using RecipesProject.Data.Models;
-using RecipesProject.ViewModels.Recipes;
 
 namespace RecipesProject.Areas.Identity
 {
     [Area("Identity")]
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _db;
